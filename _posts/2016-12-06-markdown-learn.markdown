@@ -19,7 +19,7 @@ tags: [Markdown]
 
 ### 链接
 
-[百度](http://www.baidu.com)
+[Google](http://www.google.com)
 
 
 ### 图片
