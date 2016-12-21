@@ -68,6 +68,7 @@ var encodedSign = encodeURIComponent(sign);
 var result = prestr+'&sign="'+encodedSign+'"&sign_type="RSA"';
 console.log(result);
 ```
+
 上面只是核心代码，测试项目见github https://github.com/weefree/express-alipay-wxpay
 注意一下几点：
 1.上面的签名密钥使用用户的私钥
@@ -77,6 +78,7 @@ console.log(result);
 为了保护用户私钥的安全性，客户端用服务端生成的支付参数调用支付，这样客户端结构就比较简单了，请求服务端拿到支付参数，调用支付就可以了，下面使用`Retrofit`网络框架，配合`Rxjava`做异步处理
 
 获取支付参数
+
 ``` java
     //为了逻辑简单，此处没有传递商品和用户信息，真实环境此处可以带过去商品和用户信息，用于生成支付参数
     NetClient.getApi().getAlipayParams()
@@ -146,6 +148,7 @@ console.log(result);
 
 ### 服务端验证并处理支付回调
 支付成功后，支付宝会通过同步接口和异步接口返回支付结果，由于同步结果还是需要再服务端验证（客户端不能有用户私钥），此处为了支付流程简单，支付结果完全依赖服务端回调。支付宝回调地址即上文的`notify_url`,验证过程核心代码如下
+
 ``` java
 tils.verifyAlipayCallback = function (body,alipayPublicKey) {
     try {
@@ -167,6 +170,7 @@ tils.verifyAlipayCallback = function (body,alipayPublicKey) {
 
 };
 ```
+
 上面传递的`alipayPublicKey`即支付宝公钥，具体实现见开源代码
 验证成功后，服务端可以根据`out_trade_no`找到这条交易，完成发货等后续处理。
 
