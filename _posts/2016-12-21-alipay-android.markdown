@@ -5,10 +5,10 @@ categories: [Android]
 tags: [Android]
 ---
 
-`支付宝` Android 开发整理
 ### 官方文档
 [支付宝1.0接口说明](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.KXebEA&treeId=58&articleId=103584&docType=1)
 [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_3)
+
 ### 开始
 最近项目需要微信和支付宝支付，虽然以前开发过多次，但是每次还是会遇到各种问题，支付宝和微信支付一直在升级，文档结构也变得混乱。本文档整理了开发流程和遇到的一些问题及技巧。
 支付宝和微信 app 支付流程是类似的，类似的下面步骤：
@@ -102,7 +102,9 @@ console.log(result);
                     }
                 });
 ```
+
 调用支付
+
 ``` java
  /**
      * 9000	订单支付成功
@@ -141,6 +143,7 @@ console.log(result);
                 });
     }
 ```
+
 ### 服务端验证并处理支付回调
 支付成功后，支付宝会通过同步接口和异步接口返回支付结果，由于同步结果还是需要再服务端验证（客户端不能有用户私钥），此处为了支付流程简单，支付结果完全依赖服务端回调。支付宝回调地址即上文的`notify_url`,验证过程核心代码如下
 ``` java
@@ -166,6 +169,7 @@ tils.verifyAlipayCallback = function (body,alipayPublicKey) {
 ```
 上面传递的`alipayPublicKey`即支付宝公钥，具体实现见开源代码
 验证成功后，服务端可以根据`out_trade_no`找到这条交易，完成发货等后续处理。
+
 ### Demo下载
 [Android客户端](https://github.com/weefree/android-alipay-wxpay)
 [Nodejs服务端](https://github.com/weefree/express-alipay-wxpay)
